@@ -1,0 +1,18 @@
+[
+  {
+    "slug": "project-management-tool",
+    "title": "Advanced Project Management Tool",
+    "description": "A comprehensive project management solution that helps teams collaborate efficiently, track progress, and deliver projects on time with built-in analytics and reporting features.",
+    "tags": ["productivity", "collaboration", "business"],
+    "datePublished": "2024-01-15",
+    "dateModified": "2024-08-20"
+  },
+  {
+    "slug": "ai-writing-assistant", 
+    "title": "AI-Powered Writing Assistant",
+    "description": "Transform your writing with our intelligent assistant that provides real-time suggestions, grammar corrections, and style improvements for all types of content creation and professional communication.",
+    "tags": ["ai", "writing", "productivity"],
+    "datePublished": "2024-02-10",
+    "dateModified": "2024-08-25"
+  }
+]
