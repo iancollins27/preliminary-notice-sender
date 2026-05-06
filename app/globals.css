@@ -734,6 +734,118 @@ header {
   flex: 1 1 0%;
 }
 
+/* Agent Mail landing components */
+.mono-tag {
+  display: inline-block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+}
+
+.hero-cta-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  background: #ffffff;
+  color: #2563eb;
+  transition: background 0.15s ease-in-out;
+}
+
+.hero-cta-primary:hover {
+  background: #f3f4f6;
+  text-decoration: none;
+}
+
+.hero-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  transition: all 0.15s ease-in-out;
+}
+
+.hero-cta-secondary:hover {
+  background: #ffffff;
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.code-block {
+  border-radius: 0.75rem;
+  overflow: hidden;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  text-align: left;
+}
+
+.code-block-dark {
+  background: #0b1020;
+  color: #e6eaf2;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.code-block-label {
+  background: rgba(255, 255, 255, 0.04);
+  color: #9aa3b2;
+  font-size: 0.75rem;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.code-block pre {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.code-block code {
+  font-family: inherit;
+  white-space: pre;
+}
+
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.tool-name {
+  display: inline-block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1d4ed8;
+  background: #eff6ff;
+  padding: 0.25rem 0.6rem;
+  border-radius: 0.375rem;
+}
+
+a.card:hover .tool-name {
+  background: #dbeafe;
+}
+
 /* Improved responsive design */
 @media (max-width: 768px) {
   .hero h1 {
