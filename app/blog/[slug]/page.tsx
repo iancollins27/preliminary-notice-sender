@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Metadata } from 'next'
 import { getAllPosts, getPostBySlug } from '@/lib/blog'
 import { siteConfig } from '@/lib/config'
+import { renderMarkdown } from '@/lib/markdown'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
 
@@ -126,8 +127,8 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
 
             {/* Content */}
             <div className="prose prose-lg max-w-none">
-              <div 
-                dangerouslySetInnerHTML={{ __html: post.content.replace(/\n/g, '<br />') }}
+              <div
+                dangerouslySetInnerHTML={{ __html: renderMarkdown(post.content) }}
               />
             </div>
 

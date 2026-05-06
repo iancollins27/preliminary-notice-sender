@@ -24,6 +24,9 @@ export function Header() {
               <Link href="/openapi.json" className="nav-link">
                 API
               </Link>
+              <Link href="/site" className="nav-link">
+                Recipes
+              </Link>
               <Link href="/blog" className="nav-link">
                 Blog
               </Link>
@@ -61,6 +64,9 @@ export function Header() {
               </Link>
               <Link href="/openapi.json" className="mobile-nav-link">
                 API
+              </Link>
+              <Link href="/site" className="mobile-nav-link">
+                Recipes
               </Link>
               <Link href="/blog" className="mobile-nav-link">
                 Blog
