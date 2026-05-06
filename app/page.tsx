@@ -120,8 +120,8 @@ export default async function HomePage() {
               <Link href="/setup" className="hero-cta-primary">
                 Wire it into your agent
               </Link>
-              <Link href="#how-it-works" className="hero-cta-secondary">
-                See how it works
+              <Link href="/demo" className="hero-cta-secondary">
+                Watch the demo
               </Link>
             </div>
             <div className="code-block code-block-dark text-left">
