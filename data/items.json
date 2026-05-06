@@ -1,18 +1,92 @@
 [
   {
-    "slug": "project-management-tool",
-    "title": "Advanced Project Management Tool",
-    "description": "A comprehensive project management solution that helps teams collaborate efficiently, track progress, and deliver projects on time with built-in analytics and reporting features.",
-    "tags": ["productivity", "collaboration", "business"],
-    "datePublished": "2024-01-15",
-    "dateModified": "2024-08-20"
+    "slug": "send-physical-mail-from-claude-code",
+    "title": "Send Physical Mail from Claude Code",
+    "description": "Wire Agent Mail into Claude Code with one command and your terminal-resident agent can drop letters in the mail. End-to-end setup, tool reference, and a worked example.",
+    "tags": ["claude-code", "mcp", "tutorial"],
+    "datePublished": "2026-04-29",
+    "dateModified": "2026-05-06",
+    "body": "## Why this is interesting\n\nClaude Code already runs your terminal: it can edit files, hit APIs, run tests, deploy. The one thing it couldn't do until recently was reach the physical world. Agent Mail closes that gap. Once you've registered the MCP server, the agent can call `send_letter` and a real, postmarked envelope shows up at any US address.\n\n## One-line setup\n\nFrom inside any Claude Code project:\n\n```bash\nclaude mcp add --transport http agent-mail https://example.com/mcp\n```\n\nReplace the URL with whatever Agent Mail's MCP endpoint is for you. After that, the agent has `send_letter`, `send_postcard`, `get_mail_status`, and `list_sent_mail` available the next time it's invoked.\n\n## A worked example\n\nIn a Claude Code session:\n\n> Send a thank-you note to my landlord at 1 Main St, Brooklyn NY 11201, signed from \"Resident in 4B,\" thanking her for the quick repair this morning.\n\nThe agent calls `send_letter` with the recipient address and a short body, gets back a tracking ID, and the letter goes out the same business day.\n\n## What to do next\n\n- Walk through the full [setup page](/setup) for screenshots and edge cases.\n- Read the complete [tool reference](/llms-full.txt) if you want to give the agent richer instructions.\n- Look at the [OpenAPI spec](/openapi.json) if you'd rather call the HTTP API directly."
   },
   {
-    "slug": "ai-writing-assistant", 
-    "title": "AI-Powered Writing Assistant",
-    "description": "Transform your writing with our intelligent assistant that provides real-time suggestions, grammar corrections, and style improvements for all types of content creation and professional communication.",
-    "tags": ["ai", "writing", "productivity"],
-    "datePublished": "2024-02-10",
-    "dateModified": "2024-08-25"
+    "slug": "mcp-server-for-direct-mail",
+    "title": "MCP Server for Direct Mail",
+    "description": "Agent Mail is the Model Context Protocol server that lets any MCP-aware agent send physical letters and postcards. Connection details, tool list, and pricing.",
+    "tags": ["mcp", "direct-mail", "reference"],
+    "datePublished": "2026-04-29",
+    "dateModified": "2026-05-06",
+    "body": "## What is this\n\nAgent Mail is an MCP server. It exposes a small, well-typed set of tools for sending physical mail and gets out of the way. Any client that speaks Model Context Protocol — Claude Desktop, Claude Code, Cursor, Codex CLI, the OpenAI Agents SDK, custom hosts — can use it.\n\n## Tools\n\n- `send_letter`: compose and mail a physical letter to any US address.\n- `send_postcard`: send a postcard with a custom front image.\n- `get_mail_status`: check delivery state by ID.\n- `list_sent_mail`: paginate through everything the agent has sent.\n\nFull schemas live in [/llms-full.txt](/llms-full.txt) and [/openapi.json](/openapi.json).\n\n## Connection\n\nTransport: streamable HTTP. The endpoint is published in the [setup page](/setup), which has copy-paste config for every major client.\n\n## Pricing\n\nFree sandbox for testing — letters render to PDF previews but aren't actually mailed. Production is pay-per-piece, no subscription. Bulk discounts apply automatically over volume thresholds.\n\nIf you're evaluating direct-mail-from-agents and want a real conversation, email [hello@agentmail.dev](mailto:hello@agentmail.dev)."
+  },
+  {
+    "slug": "lob-alternative-for-ai-agents",
+    "title": "Lob Alternative for AI Agents",
+    "description": "Lob is great for batch-mode direct mail. Agent Mail is built for the opposite shape: one piece at a time, decided and sent autonomously by an AI agent. Here's how they compare.",
+    "tags": ["lob", "comparison", "direct-mail"],
+    "datePublished": "2026-04-29",
+    "dateModified": "2026-05-06",
+    "body": "## TL;DR\n\nIf you want to upload a CSV of 50,000 recipients and blast a campaign, use Lob. If you want an AI agent to look at a single conversation and decide to drop a thank-you note in the mail, Agent Mail is the right shape.\n\n## What's different\n\n- **Interface.** Lob is a REST API designed for batch direct mail. Agent Mail is an MCP server designed for agents calling tools one piece at a time. Both are technically possible to use either way; the ergonomics are night-and-day.\n- **Discovery.** Agent Mail publishes an [llms.txt](/llms.txt), [llms-full.txt](/llms-full.txt), and a [/setup](/setup) endpoint so any agent that lands on the docs can self-onboard. Lob's docs are written for humans.\n- **Mental model.** With Lob, your code triggers a campaign. With Agent Mail, your agent decides — autonomously, per-event — to send a piece.\n\n## When to pick which\n\nLob: bulk direct-mail campaigns, marketing automation, scheduled mailings, statement printing.\n\nAgent Mail: agent loops, customer-success automations that occasionally output physical mail, personal AI assistants, anything that decides one-piece-at-a-time.\n\n## Migrating from Lob\n\nIf you have an existing Lob integration and want to give the same capability to an agent, you don't have to rip Lob out. Wire Agent Mail in as a new MCP server alongside it; the agent picks Agent Mail for one-off pieces and your existing Lob path keeps handling batch campaigns. They coexist."
+  },
+  {
+    "slug": "click2mail-api-alternative",
+    "title": "Click2Mail API Alternative",
+    "description": "Looking at Click2Mail for programmatic mail? Agent Mail is the same idea, but built for AI agents — MCP-first, with rich agent-readable docs and a simple HTTP fallback.",
+    "tags": ["click2mail", "comparison", "api"],
+    "datePublished": "2026-04-29",
+    "dateModified": "2026-05-06",
+    "body": "## What you get\n\nClick2Mail and Agent Mail both let your code put a real letter in the mail. The differences are in the surface area and the audience.\n\n- **MCP-first.** Agent Mail's primary surface is MCP, so any agent that speaks MCP can use it without you writing client code. The HTTP API exists too — see [/openapi.json](/openapi.json) — but it's the fallback, not the front door.\n- **Agent-readable docs.** [/llms.txt](/llms.txt) and [/llms-full.txt](/llms-full.txt) are written to be ingested by language models cold. Drop the URL into a Claude conversation and it can integrate without further hand-holding.\n- **Pay-per-piece, no subscription.** Sandbox is free; production is per-piece.\n\n## When Click2Mail wins\n\nIf you're building a print-shop replacement or a mailroom automation tool with no AI in the picture, Click2Mail is mature and well-suited. Agent Mail is built around the assumption that an agent is the caller.\n\n## How to evaluate\n\nThe fastest test: open Claude Desktop, paste in the Agent Mail MCP config from [/setup](/setup), and ask the agent to draft and send a single letter. If that loop feels right for your use case, you're in the right place."
+  },
+  {
+    "slug": "send-letters-from-cursor",
+    "title": "Send Letters from Cursor",
+    "description": "Cursor's MCP support means your IDE-resident agent can take real-world actions. Here's how to wire Agent Mail in so Cursor can put a letter in the mail.",
+    "tags": ["cursor", "mcp", "tutorial"],
+    "datePublished": "2026-04-29",
+    "dateModified": "2026-05-06",
+    "body": "## Setup\n\nAdd Agent Mail to `~/.cursor/mcp.json` (or your project's `.cursor/mcp.json`):\n\n```json\n{\n  \"mcpServers\": {\n    \"agent-mail\": {\n      \"url\": \"https://example.com/mcp\"\n    }\n  }\n}\n```\n\nReload Cursor. The next agent invocation will have `send_letter` and friends available.\n\n## What this enables\n\n- Customer success workflows where an agent drafts a piece of mail in response to an event in your codebase (a closed support ticket, a successful onboarding milestone).\n- Personal assistant flows: ask Cursor to mail a thank-you note based on a meeting transcript in your repo.\n- Onboarding kits: Cursor watches for a new user signup in your test data and the agent mails them a welcome letter.\n\n## Tips\n\n- Keep recipient addresses in a small JSON file the agent can read. Your prompts get shorter and the agent's tool calls get more reliable.\n- For multi-piece flows, lean on `list_sent_mail` to let the agent check what it has already sent before queuing more.\n\nFull setup walkthrough: [/setup](/setup). Tool reference: [/llms-full.txt](/llms-full.txt)."
+  },
+  {
+    "slug": "openai-agents-physical-mail",
+    "title": "OpenAI Agents SDK + Physical Mail",
+    "description": "Connect Agent Mail to the OpenAI Agents SDK as a streamable-HTTP MCP server. Code snippet, gotchas, and a practical autonomous-mail example.",
+    "tags": ["openai", "agents-sdk", "mcp"],
+    "datePublished": "2026-04-29",
+    "dateModified": "2026-05-06",
+    "body": "## Wire-up\n\n```python\nfrom agents import Agent, MCPServerStreamableHttp\n\nmail = MCPServerStreamableHttp(name=\"agent-mail\", url=\"https://example.com/mcp\")\n\nagent = Agent(\n    name=\"Mailer\",\n    instructions=\"You can send physical mail via the agent-mail MCP server.\",\n    mcp_servers=[mail],\n)\n```\n\nThat's it — the agent now has the four mail tools available alongside whatever else it can do.\n\n## A practical example\n\nA classic loop: a CRM webhook fires when a deal closes, the agent drafts a personalized thank-you letter to the buyer, and `send_letter` puts it in the mail. The whole sequence is one tool-using turn for the agent.\n\n```python\nresponse = await agent.run(\n    \"A new deal closed: contact_id=c_42. Mail them a thank-you note.\"\n)\n```\n\nThe agent fetches the contact, drafts a letter, and calls `send_letter`. You get back a tracking ID it can poll later via `get_mail_status`.\n\n## Gotchas\n\n- Streamable HTTP needs an outbound connection from wherever your agent runs. If you're on a locked-down VPC, allow the egress.\n- Sandbox mode is free but doesn't actually mail anything — useful for development; switch to a production key when you're ready to print.\n- The agent SDK's tool-use loop occasionally retries. Make sure your prompts make it obvious that one piece per request is the intended behavior."
+  },
+  {
+    "slug": "automated-thank-you-notes-ai",
+    "title": "Automated Thank-You Notes with AI",
+    "description": "An AI agent that decides who deserves a thank-you note, drafts it in your voice, and drops it in the mail. Setup, prompt patterns, and quality controls.",
+    "tags": ["use-case", "thank-you", "automation"],
+    "datePublished": "2026-04-29",
+    "dateModified": "2026-05-06",
+    "body": "## The pattern\n\nThe agent watches for an event — a closed deal, a positive support resolution, a meeting that mattered. It fetches what it needs to know, drafts a short note in your voice, and calls `send_letter`. The recipient holds something physical, sent by software.\n\n## A minimal setup\n\n1. Wire Agent Mail in via [/setup](/setup).\n2. Give the agent access to whatever data source decides who gets a note (CRM, calendar, support tool).\n3. Provide a short voice/style guide and a few example notes for in-context learning.\n4. Run on a schedule, or trigger from a webhook.\n\n## Prompt pattern\n\n> You are a thoughtful assistant who writes brief, hand-written-feeling thank-you notes (4-6 sentences). When you decide to send one, call `send_letter`. Don't send more than one note per recipient per 30 days. Skip recipients who don't have a complete mailing address.\n\n## Quality controls\n\n- Always pass `from` so recipients know who sent it.\n- Use `list_sent_mail` with `recipient_filter` to dedupe before sending.\n- Run a moderation step on the draft before the tool call. Agent Mail also moderates server-side.\n\n## Beyond thank-yous\n\nThe same shape works for condolence cards, congratulations on a promotion, follow-ups after a great first call, and similar one-shot, decided-by-context pieces of mail."
+  },
+  {
+    "slug": "preliminary-notice-mcp",
+    "title": "Preliminary Notices via MCP",
+    "description": "Construction-industry preliminary notices have to ship as physical mail with proof of delivery. Here's how to give an agent the ability to send them.",
+    "tags": ["legal", "construction", "use-case"],
+    "datePublished": "2026-04-29",
+    "dateModified": "2026-05-06",
+    "body": "## Why physical mail still matters here\n\nIn US construction, mechanic's lien rights typically depend on serving preliminary notices on the property owner, GC, and lender by certified mail (or equivalent). Email doesn't satisfy the statute. Physical mail with tracking does.\n\n## What the agent does\n\n- Pulls project, owner, GC, and lender data from your records.\n- Drafts the preliminary notice using the template that matches the project's state.\n- Calls `send_letter` for each recipient with the appropriate certified-mail flag.\n- Records the tracking IDs back into your project record for the audit trail.\n\n## Why MCP makes sense\n\nA construction-PM-style agent already has tools for project data, contacts, and document templates. Adding Agent Mail gives it the missing physical-world action. The agent stops being a draft-and-remind tool and starts being end-to-end.\n\n## What we don't do\n\nWe don't write the legal content for you. Use the right state-specific template; we just print and mail it. If you need a richer compliance layer (deadline calculation, statutory language), keep that in your application and call us at the dispatch step."
+  },
+  {
+    "slug": "physical-mail-api-for-llms",
+    "title": "Physical Mail API for LLMs",
+    "description": "An MCP-first physical-mail API designed to be discoverable, callable, and well-typed for large language models. Tool surface, agent-readable docs, and pricing.",
+    "tags": ["api", "llm", "reference"],
+    "datePublished": "2026-04-29",
+    "dateModified": "2026-05-06",
+    "body": "## Designed for the model, not the dev portal\n\nMost APIs are designed for humans reading docs. Agent Mail is designed for an LLM reading documentation cold and figuring out how to call it. Concretely:\n\n- [/llms.txt](/llms.txt) and [/llms-full.txt](/llms-full.txt) at the root, with crisp tool descriptions.\n- [/openapi.json](/openapi.json) with rich descriptions and an `x-mcp` extension pointing back at the MCP server.\n- [/setup](/setup) returns ready-to-paste MCP config for every major client.\n- JSON-LD `SoftwareApplication` and `WebAPI` graphs on the homepage.\n\n## Tool surface\n\n- `send_letter` (recipient, body, optional return address, optional subject).\n- `send_postcard` (recipient, front image URL, message).\n- `get_mail_status` (id).\n- `list_sent_mail` (limit, cursor, filters).\n\nPrimitives only. No 17-knob configurations. The schemas are tight enough that an agent can call them on the first try without reading more docs.\n\n## Why this matters\n\nIf an agent has to read 8 pages of docs to figure out an API, it won't. If the surface is small, well-typed, and self-describing, it will. We optimize aggressively for the second case."
+  },
+  {
+    "slug": "agent-direct-mail",
+    "title": "Agent Direct Mail",
+    "description": "What direct mail looks like when an AI agent is the marketer: targeted, one-piece-at-a-time, decided per-event. Patterns, examples, and how to set it up.",
+    "tags": ["use-case", "direct-mail", "marketing"],
+    "datePublished": "2026-04-29",
+    "dateModified": "2026-05-06",
+    "body": "## A different shape\n\nClassic direct mail: pick a list, pick a creative, blast 10,000 pieces, hope 1% respond. Agent direct mail: agent watches for high-intent signals, drafts a piece per signal, mails one. Volume drops 100x; relevance jumps 100x.\n\n## What a setup looks like\n\n1. Agent monitors signal sources (your CRM, product analytics, social listening).\n2. When a high-value signal fires (a target account hit your pricing page three times this week), the agent enriches the lead, drafts a tailored letter, and calls `send_letter`.\n3. `get_mail_status` updates your CRM when the piece is delivered.\n\n## Why this works\n\nPhysical mail, sent at low volume but high relevance, has open rates that crush email and a tactile quality that emails never get. The bottleneck has historically been the human time required to draft and send each piece. The agent removes the bottleneck.\n\n## Caveats\n\n- The bar for content quality goes up. A bad personalized letter is worse than a generic one.\n- Set hard rate limits per recipient via `list_sent_mail` lookups.\n- Track response attribution carefully — physical mail responses often happen days later, in inbound channels you wouldn't otherwise instrument."
   }
 ]

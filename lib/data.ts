@@ -7,6 +7,7 @@ export interface Item {
   tags?: string[]
   datePublished?: string
   dateModified?: string
+  body?: string
 }
 
 export async function getAllItems(): Promise<Item[]> {

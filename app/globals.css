@@ -186,6 +186,59 @@ a:hover {
   text-decoration: underline;
 }
 
+.prose ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+  list-style: decimal;
+}
+
+.prose ul {
+  list-style: disc;
+}
+
+.prose code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.9em;
+  background: #f3f4f6;
+  color: #1f2937;
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.25rem;
+}
+
+.prose pre {
+  background: #0b1020;
+  color: #e6eaf2;
+  border-radius: 0.5rem;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  margin: 1.25rem 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.prose pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  border-radius: 0;
+  font-size: 0.875rem;
+}
+
+.prose blockquote {
+  border-left: 3px solid #dbeafe;
+  padding-left: 1rem;
+  margin: 1.25rem 0;
+  color: #4b5563;
+  font-style: italic;
+}
+
+.prose hr {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 2rem 0;
+}
+
 /* Header and navigation styles */
 header {
   position: sticky;
