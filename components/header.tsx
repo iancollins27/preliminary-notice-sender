@@ -15,33 +15,30 @@ export function Header() {
             
             {/* Desktop Navigation */}
             <div className="flex items-center space-x-8">
-              <Link href="/" className="nav-link">
-                Home
+              <Link href="/setup" className="nav-link">
+                Setup
               </Link>
-              <Link href="/about" className="nav-link">
-                About
+              <Link href="/llms-full.txt" className="nav-link">
+                Docs
               </Link>
-              <Link href="/services" className="nav-link">
-                Services
-              </Link>
-              <Link href="/site" className="nav-link">
-                Tools
+              <Link href="/openapi.json" className="nav-link">
+                API
               </Link>
               <Link href="/blog" className="nav-link">
                 Blog
               </Link>
-              <Link href="/contact" className="nav-link">
-                Contact
+              <Link href="/about" className="nav-link">
+                About
               </Link>
             </div>
-            
+
             {/* CTA Button */}
             <div className="flex items-center space-x-4">
-              <Link 
-                href="/contact" 
+              <Link
+                href="/setup"
                 className="cta-button"
               >
-                Get Started
+                Wire it in
               </Link>
               
               {/* Mobile menu button */}
@@ -56,23 +53,20 @@ export function Header() {
           {/* Mobile Navigation Menu */}
           <div id="mobile-menu" className="md:hidden hidden border-t border-gray-200 py-4">
             <div className="flex flex-col space-y-1">
-              <Link href="/" className="mobile-nav-link">
-                Home
+              <Link href="/setup" className="mobile-nav-link">
+                Setup
               </Link>
-              <Link href="/about" className="mobile-nav-link">
-                About
+              <Link href="/llms-full.txt" className="mobile-nav-link">
+                Docs
               </Link>
-              <Link href="/services" className="mobile-nav-link">
-                Services
-              </Link>
-              <Link href="/site" className="mobile-nav-link">
-                Tools
+              <Link href="/openapi.json" className="mobile-nav-link">
+                API
               </Link>
               <Link href="/blog" className="mobile-nav-link">
                 Blog
               </Link>
-              <Link href="/contact" className="mobile-nav-link">
-                Contact
+              <Link href="/about" className="mobile-nav-link">
+                About
               </Link>
             </div>
           </div>

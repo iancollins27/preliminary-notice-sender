@@ -43,17 +43,17 @@ export function Footer() {
               </div>
             </div>
             
-            {/* Navigation */}
+            {/* For agents */}
             <div>
               <h3 className="text-sm font-semibold text-gray-900 tracking-wider uppercase mb-4">
-                Navigation
+                For agents
               </h3>
               <ul className="space-y-3">
-                <li><Link href="/about" className="text-gray-600 hover:text-gray-900">About</Link></li>
-                <li><Link href="/services" className="text-gray-600 hover:text-gray-900">Services</Link></li>
-                <li><Link href="/site" className="text-gray-600 hover:text-gray-900">Tools</Link></li>
+                <li><Link href="/setup" className="text-gray-600 hover:text-gray-900">Setup</Link></li>
+                <li><Link href="/llms.txt" className="text-gray-600 hover:text-gray-900">llms.txt</Link></li>
+                <li><Link href="/llms-full.txt" className="text-gray-600 hover:text-gray-900">llms-full.txt</Link></li>
+                <li><Link href="/openapi.json" className="text-gray-600 hover:text-gray-900">OpenAPI spec</Link></li>
                 <li><Link href="/blog" className="text-gray-600 hover:text-gray-900">Blog</Link></li>
-                <li><Link href="/contact" className="text-gray-600 hover:text-gray-900">Contact</Link></li>
               </ul>
             </div>
             

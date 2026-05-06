@@ -1,8 +1,13 @@
 export interface SiteConfig {
   name: string
   description: string
+  tagline: string
   url: string
   ogImage?: string
+  mcp: {
+    serverUrl: string
+    transport: 'http' | 'sse' | 'stdio'
+  }
   links: {
     twitter?: string
     github?: string
@@ -15,19 +20,25 @@ export interface SiteConfig {
   }
 }
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+
 export const siteConfig: SiteConfig = {
-  name: "Your SaaS Name",
-  description: "Transform your workflow with our powerful SaaS solution. Built for teams who value efficiency and growth.",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
-  ogImage: "/og.png",
+  name: 'Agent Mail',
+  tagline: 'The way AI agents send physical mail.',
+  description:
+    'Agent Mail is an MCP server that lets Claude, Cursor, Codex, and any agent send real letters and postcards via USPS — no humans in the loop.',
+  url: siteUrl,
+  ogImage: '/api/og?title=The+way+AI+agents+send+physical+mail&site=Agent+Mail',
+  mcp: {
+    serverUrl: process.env.NEXT_PUBLIC_MCP_URL || `${siteUrl}/mcp`,
+    transport: 'http',
+  },
   links: {
-    twitter: "https://twitter.com/yourusername",
-    github: "https://github.com/yourusername",
-    linkedin: "https://linkedin.com/company/yourcompany",
+    twitter: 'https://twitter.com/agentmail',
+    github: 'https://github.com/agentmail',
   },
   company: {
-    name: "Your Company Inc.",
-    email: "hello@yourcompany.com",
-    address: "123 Main St, City, State 12345",
+    name: 'Agent Mail',
+    email: 'hello@agentmail.dev',
   },
 }
