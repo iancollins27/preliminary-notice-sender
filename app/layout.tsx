@@ -48,8 +48,10 @@ export const metadata: Metadata = {
     follow: true,
   },
   other: {
-    'mcp:server-url': siteConfig.mcp.serverUrl,
+    'mcp:package': siteConfig.npmPackage,
+    'mcp:command': `${siteConfig.mcp.command} ${siteConfig.mcp.args.join(' ')}`,
     'mcp:transport': siteConfig.mcp.transport,
+    'api:base-url': siteConfig.api.baseUrl,
   },
 }
 

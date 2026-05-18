@@ -51,9 +51,13 @@ export default async function ItemPage({ params }: { params: { slug: string } })
   const mcpJsonConfig = JSON.stringify(
     {
       mcpServers: {
-        'agent-mail': {
-          url: siteConfig.mcp.serverUrl,
-          transport: siteConfig.mcp.transport,
+        mailsnail: {
+          command: siteConfig.mcp.command,
+          args: siteConfig.mcp.args,
+          env: {
+            MAIL_PROVIDER: 'managed',
+            MAIL_API_BASE_URL: siteConfig.api.baseUrl,
+          },
         },
       },
     },
@@ -82,8 +86,8 @@ export default async function ItemPage({ params }: { params: { slug: string } })
     keywords: item.tags?.join(', '),
     about: {
       '@type': 'WebAPI',
-      name: `${siteConfig.name} MCP Server`,
-      url: siteConfig.mcp.serverUrl,
+      name: `${siteConfig.name} HTTP API`,
+      url: siteConfig.api.baseUrl,
     },
   }
 

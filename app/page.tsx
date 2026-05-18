@@ -5,9 +5,13 @@ export default async function HomePage() {
   const mcpJsonConfig = JSON.stringify(
     {
       mcpServers: {
-        'agent-mail': {
-          url: siteConfig.mcp.serverUrl,
-          transport: siteConfig.mcp.transport,
+        mailsnail: {
+          command: siteConfig.mcp.command,
+          args: siteConfig.mcp.args,
+          env: {
+            MAIL_PROVIDER: 'managed',
+            MAIL_API_BASE_URL: siteConfig.api.baseUrl,
+          },
         },
       },
     },
@@ -19,22 +23,32 @@ export default async function HomePage() {
     {
       name: 'send_letter',
       description:
-        'Compose and mail a physical letter to any US address. Plain text, markdown, or HTML body. Returns a tracking ID.',
+        'Mail a physical letter to any US address. Pass `body_text` (we render the PDF) or `file_url` (your own PDF). `extra_service: "certified"` for certified mail with tracking.',
     },
     {
       name: 'send_postcard',
       description:
-        'Send a postcard with a custom front image and message. Same-day handoff to USPS in most regions.',
+        'Send a postcard with a custom front and back. 4x6, 6x9, or 6x11.',
     },
     {
-      name: 'get_mail_status',
+      name: 'verify_address',
       description:
-        'Look up delivery state for any piece your agent has sent: queued, printed, in_transit, delivered.',
+        'USPS CASS validation. Free. Run this before sending so you stop paying for return-to-sender mail.',
     },
     {
-      name: 'list_sent_mail',
+      name: 'get_letter',
       description:
-        'Page through everything the agent has sent on this account, with filters by recipient and date.',
+        'Look up status for any piece your agent has sent: queued, in_production, in_transit, delivered.',
+    },
+    {
+      name: 'list_letters',
+      description:
+        'Page through everything the agent has sent on this account.',
+    },
+    {
+      name: 'cancel_letter',
+      description:
+        'Cancel a letter before it enters production. Cancellation windows are short.',
     },
   ]
 
@@ -71,16 +85,16 @@ export default async function HomePage() {
           '@type': 'Offer',
           price: '0',
           priceCurrency: 'USD',
-          description: 'Free sandbox; pay-per-piece for production mail.',
+          description: 'No signup. Pay per piece via Stripe Link.',
         },
         featureList: tools.map((t) => `${t.name}: ${t.description}`),
       },
       {
         '@type': 'WebAPI',
-        name: `${siteConfig.name} MCP Server`,
+        name: `${siteConfig.name} HTTP API`,
         description:
-          'Model Context Protocol server exposing tools for sending physical mail from AI agents.',
-        url: siteConfig.mcp.serverUrl,
+          'HTTP endpoints that accept Stripe Shared Payment Tokens (SPT) and the Machine Payments Protocol for physical mail.',
+        url: siteConfig.api.baseUrl,
         documentation: `${siteConfig.url}/setup`,
         provider: {
           '@type': 'Organization',
@@ -103,7 +117,6 @@ export default async function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* Hero */}
       <section className="relative py-20 lg:py-32 bg-gradient-to-r from-blue-600 to-blue-800">
         <div className="container">
           <div className="max-w-4xl mx-auto text-center text-white">
@@ -113,8 +126,8 @@ export default async function HomePage() {
             </h1>
             <p className="text-xl lg:text-2xl mb-8 opacity-90">
               {siteConfig.name} is an MCP server that lets Claude, Cursor,
-              Codex, and any agent send real letters and postcards. No humans
-              in the loop — just a tool call and a postmarked envelope.
+              Codex, and any agent send real letters and postcards. No signup,
+              no humans in the loop — pay per piece via Stripe Link.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <Link href="/setup" className="hero-cta-primary">
@@ -134,7 +147,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* How it works */}
       <section id="how-it-works" className="py-16 lg:py-24">
         <div className="container">
           <div className="text-center mb-16">
@@ -142,7 +154,7 @@ export default async function HomePage() {
               From tool call to mailbox in three steps
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              No printers, no postage, no envelope-licking.
+              No printers, no postage, no envelope-licking. No signup.
             </p>
           </div>
 
@@ -156,15 +168,15 @@ export default async function HomePage() {
               },
               {
                 n: '2',
-                title: 'We print, fold, and stamp',
+                title: 'It pays with Stripe Link',
                 body:
-                  'A real letter is rendered, signed, sealed in a real envelope, and handed to USPS the same business day.',
+                  'The agent mints a Shared Payment Token (SPT) from a Link wallet — pay-per-piece, no account on our side.',
               },
               {
                 n: '3',
                 title: 'It arrives in their mailbox',
                 body:
-                  'Tracking pings the agent when the piece is delivered. The recipient holds something physical — sent by software.',
+                  'We render, print, fold, stamp, and hand to USPS the same business day. The recipient holds something physical — sent by software.',
               },
             ].map((step) => (
               <div key={step.n} className="card">
@@ -179,7 +191,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Tools */}
       <section className="py-16 lg:py-24 bg-gray-50">
         <div className="container">
           <div className="text-center mb-16">
@@ -187,7 +198,7 @@ export default async function HomePage() {
               Tools your agent gets
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Crisp, well-typed MCP tools. Discoverable through{' '}
+              Six tools, all well-typed. Discoverable through{' '}
               <Link href="/llms.txt" className="text-blue-600">
                 llms.txt
               </Link>{' '}
@@ -210,7 +221,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Use cases */}
       <section className="py-16 lg:py-24">
         <div className="container">
           <div className="text-center mb-16">
@@ -231,8 +241,35 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* For agents */}
       <section className="py-16 lg:py-24 bg-gray-50">
+        <div className="container">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+              Pay per piece. No subscription.
+            </h2>
+            <p className="text-xl text-gray-600 mb-8">
+              Agent mints an SPT for the quoted amount, we charge once, mail
+              goes out. If mailing fails, the charge is auto-refunded.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="card bg-white">
+                <div className="text-3xl font-bold text-gray-900">$1.50</div>
+                <div className="text-gray-600 mt-1">First-class letter</div>
+              </div>
+              <div className="card bg-white">
+                <div className="text-3xl font-bold text-gray-900">$9.00</div>
+                <div className="text-gray-600 mt-1">Certified letter</div>
+              </div>
+              <div className="card bg-white">
+                <div className="text-3xl font-bold text-gray-900">$1.00</div>
+                <div className="text-gray-600 mt-1">Postcard (4x6)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 lg:py-24">
         <div className="container">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
@@ -278,7 +315,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* CTA */}
       <section className="py-16 lg:py-24 bg-blue-600">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center text-white">
