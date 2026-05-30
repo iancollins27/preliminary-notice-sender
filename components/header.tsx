@@ -18,6 +18,9 @@ export function Header() {
               <Link href="/setup" className="nav-link">
                 Setup
               </Link>
+              <Link href="/demo" className="nav-link">
+                Demo
+              </Link>
               <Link href="/llms-full.txt" className="nav-link">
                 Docs
               </Link>
@@ -58,6 +61,9 @@ export function Header() {
             <div className="flex flex-col space-y-1">
               <Link href="/setup" className="mobile-nav-link">
                 Setup
+              </Link>
+              <Link href="/demo" className="mobile-nav-link">
+                Demo
               </Link>
               <Link href="/llms-full.txt" className="mobile-nav-link">
                 Docs
